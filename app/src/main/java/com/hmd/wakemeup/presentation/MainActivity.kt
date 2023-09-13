@@ -1,13 +1,11 @@
-package com.hmd.wakemeup
+package com.hmd.wakemeup.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,14 +25,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.exyte.animatednavbar.AnimatedNavigationBar
 import com.exyte.animatednavbar.animation.balltrajectory.Parabolic
 import com.exyte.animatednavbar.animation.indendshape.Height
 import com.exyte.animatednavbar.animation.indendshape.shapeCornerRadius
 import com.exyte.animatednavbar.utils.noRippleClickable
+import com.hmd.wakemeup.R
+import com.hmd.wakemeup.presentation.graphs.MainNavigationGraph
+import com.hmd.wakemeup.presentation.graphs.NavigationBarItems
 import com.hmd.wakemeup.ui.theme.WakeMeUpTheme
 
 class MainActivity : ComponentActivity() {
@@ -47,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    MainScreen(navController = rememberNavController())
                 }
             }
         }
@@ -57,7 +60,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController) {
     val navigationBarItems = remember { NavigationBarItems.values() }
     var selectedIndex by remember { mutableStateOf(0) }
 
@@ -77,8 +80,11 @@ fun MainScreen() {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .noRippleClickable { selectedIndex = item.ordinal },
-                        contentAlignment = Alignment.Center
+                            .noRippleClickable {
+                                selectedIndex = item.ordinal
+                                navController.navigate(item.name)
+                            },
+                        contentAlignment = Alignment.Center,
                     ) {
                         Icon(
                             modifier = Modifier.size(30.dp),
@@ -93,16 +99,10 @@ fun MainScreen() {
             }
         }
     ) {
-        
+        MainNavigationGraph(navController)
     }
 }
 
-enum class NavigationBarItems(val icon: Int) {
-    Alarm(icon = R.drawable.alarm),
-    WorldTime(icon = R.drawable.time),
-    Sleep(icon = R.drawable.bed),
-    Stopwatch(icon = R.drawable.timer)
-}
 
 fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
     clickable (
@@ -112,3 +112,5 @@ fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
         onClick()
     }
 }
+
+

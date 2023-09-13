@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.hmd.wakemeup"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.hmd.wakemeup"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -82,4 +82,6 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation("com.exyte:animated-navigation-bar:1.0.0")
+
+    implementation("androidx.navigation:navigation-compose:2.7.2")
 }
