@@ -13,6 +13,6 @@ fun WorldTimeScreen() {
         Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "WorldTimeScreen")
+        Text(text = "Hello")
     }
 }
