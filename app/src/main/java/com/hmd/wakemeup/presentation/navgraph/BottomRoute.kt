@@ -10,9 +10,9 @@ import androidx.navigation.NamedNavArgument
 sealed class BottomRoute(
     val route: String,
     val icon: ImageVector,
-    val label: String
+    val ordinal: Int
 )  {
-     object AlarmScreen: BottomRoute(route = "alarm", icon = Icons.Default.Check, label = "Alarm")
-     object SleepScreen: BottomRoute(route = "sleep", icon = Icons.Default.AccountBox, label = "Sleep")
-     object StopwatchScreen: BottomRoute(route = "stopwatch", icon = Icons.Default.Build, label = "Stopwatch")
+     object AlarmScreen: BottomRoute(route = "alarm", icon = Icons.Default.Check, ordinal = 0)
+     object SleepScreen: BottomRoute(route = "sleep", icon = Icons.Default.AccountBox, ordinal = 1)
+     object StopwatchScreen: BottomRoute(route = "stopwatch", icon = Icons.Default.Build, ordinal = 2)
 }
